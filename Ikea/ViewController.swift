@@ -9,13 +9,15 @@
 import UIKit
 import ARKit
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource  {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, ARSCNViewDelegate  {
     let configuration = ARWorldTrackingConfiguration()
-    let itemsArray: [String] = ["Cup", "Vase", "Boxing", "Table"]
+    let itemsArray: [String] = ["cup", "vase", "boxing", "table"]
     
     @IBOutlet weak var itemCollectionView: UICollectionView!
     
     @IBOutlet weak var sceneView: ARSCNView!
+    
+    var selecteditem: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         self.itemCollectionView.dataSource = self
         self.itemCollectionView.delegate = self
+        
+        // enable horizontal plane detection
+        self.configuration.planeDetection = .horizontal
+        
+        // only show tapped planes
+        self.registerGestureRecognizer()
+        
         // Do any additional setup after loading the view, typically from a nib.
     }
 
@@ -30,7 +39,45 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    func registerGestureRecognizer() {
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(tapped))
+        self.sceneView.addGestureRecognizer(tapGestureRecognizer)
+    }
+    
+    @objc func tapped(sender: UITapGestureRecognizer) {
+        let sceneView = sender.view as! ARSCNView
+        let tapLocation = sender.location(in: sceneView)
+        
+        let hitTest = sceneView.hitTest(tapLocation, types: .existingPlaneUsingExtent)
+        if (!hitTest.isEmpty) {
+            print("touched a horizontal surface")
+            addItem(hitTestResult: hitTest.first!)
+        }
+        else {
+            print("No match")
+        }
+    }
 
+    func addItem(hitTestResult: ARHitTestResult) {
+        // find out the item is currently selected
+        if let selectedItem = self.selecteditem {
+            let scene = SCNScene(named: "Models.scnassets/\(selectedItem).scn")
+            
+            let node = (scene?.rootNode.childNode(withName: selecteditem!, recursively: false))!
+            
+            // encodes information
+            let transform = hitTestResult.worldTransform
+            
+            // position of the horizontal surface
+            let thirdColumn = transform.columns.3
+            
+            node.position = SCNVector3(thirdColumn.x, thirdColumn.y, thirdColumn.z)
+            
+            self.sceneView.scene.rootNode.addChildNode(node)
+        }
+    }
+    
     // returns how many cells that the collection view will display
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return itemsArray.count
@@ -54,6 +101,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.backgroundColor = UIColor.green
+        
+        self.selecteditem = itemsArray[indexPath.row]
     }
     
     // Change the color of the collection view back to orange when deslected
@@ -62,5 +111,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
         cell?.backgroundColor = UIColor.orange
     }
     
+    func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
+        guard anchor is ARPlaneAnchor else {return}
+    }
 }
 

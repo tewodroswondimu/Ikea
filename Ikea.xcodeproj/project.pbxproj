@@ -24,6 +24,7 @@
 		1861EBF01FA7AF8200960DA8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		1861EBF21FA7AF8200960DA8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18F8E20A1FA7B447001B96CB /* ItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemCell.swift; sourceTree = "<group>"; };
+		18F8E20D1FA7BF3A001B96CB /* Model.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = Model.scnassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,6 +61,7 @@
 				1861EBE81FA7AF8200960DA8 /* ViewController.swift */,
 				18F8E20A1FA7B447001B96CB /* ItemCell.swift */,
 				1861EBEA1FA7AF8200960DA8 /* Main.storyboard */,
+				18F8E20D1FA7BF3A001B96CB /* Model.scnassets */,
 				1861EBED1FA7AF8200960DA8 /* Assets.xcassets */,
 				1861EBEF1FA7AF8200960DA8 /* LaunchScreen.storyboard */,
 				1861EBF21FA7AF8200960DA8 /* Info.plist */,
