@@ -13,6 +13,7 @@
 		1861EBEE1FA7AF8200960DA8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1861EBED1FA7AF8200960DA8 /* Assets.xcassets */; };
 		1861EBF11FA7AF8200960DA8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1861EBEF1FA7AF8200960DA8 /* LaunchScreen.storyboard */; };
 		18F8E20B1FA7B447001B96CB /* ItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F8E20A1FA7B447001B96CB /* ItemCell.swift */; };
+		18F8E20E1FA7DC4B001B96CB /* Model.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 18F8E20D1FA7BF3A001B96CB /* Model.scnassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -129,6 +130,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1861EBF11FA7AF8200960DA8 /* LaunchScreen.storyboard in Resources */,
+				18F8E20E1FA7DC4B001B96CB /* Model.scnassets in Resources */,
 				1861EBEE1FA7AF8200960DA8 /* Assets.xcassets in Resources */,
 				1861EBEC1FA7AF8200960DA8 /* Main.storyboard in Resources */,
 			);

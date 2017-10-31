@@ -21,13 +21,13 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.sceneView.session.run(configuration)
         self.sceneView.debugOptions = [ARSCNDebugOptions.showFeaturePoints, ARSCNDebugOptions.showWorldOrigin]
         self.itemCollectionView.dataSource = self
         self.itemCollectionView.delegate = self
         
         // enable horizontal plane detection
         self.configuration.planeDetection = .horizontal
+        self.sceneView.session.run(configuration)
         
         // only show tapped planes
         self.registerGestureRecognizer()
@@ -62,7 +62,7 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     func addItem(hitTestResult: ARHitTestResult) {
         // find out the item is currently selected
         if let selectedItem = self.selecteditem {
-            let scene = SCNScene(named: "Models.scnassets/\(selectedItem).scn")
+            let scene = SCNScene(named: "Model.scnassets/\(selectedItem).scn")
             
             let node = (scene?.rootNode.childNode(withName: selecteditem!, recursively: false))!
             
